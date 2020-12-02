@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#000000" />
+		<link rel="shortcut icon" href="./assets/img/favicon.ico" />
+		<link
+			rel="apple-touch-icon"
+			sizes="76x76"
+			href="./assets/img/apple-icon.png"
+		/>
+		<title>Pay | A Finance Dashboard in TailwindCSS</title>
+		<meta
+			name="description"
+			content="Pay. A Finance Dashboard built with TailwindCSS and Alpine js."
+		/>
+		<link type="text/css" href="assets/css/style.css" rel="stylesheet" />
+	</head>
+
+	<body class="antialiased" x-data="{ menuOpen: false }">
+		<div
+			class="min-h-screen bg-gray-100 flex flex-col md:grid items-center px-4 pb-4"
+			style="grid-template-columns: 80px 1fr; grid-template-rows: auto 1fr"
+		>
+			<header
+				class="flex items-center w-full justify-between mb-4 md:mb-0 py-4 md:col-start-1 md:row-start-1 md:col-end-3 md:row-end-1"
+			>
+				<button
+					@click="menuOpen = !menuOpen"
+					class="md:hidden focus:bg-gray-200 focus:outline-none rounded-xl focus:ring-2 focus:ring-black"
+				>
+					<svg
+						class="h-10 w-10 text-gray-900 stroke-current"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M4 6h16M4 12h16M4 18h7"
+						/>
+					</svg>
+				</button>
+
+				<div class="hidden md:block">
+					<h1 class="text-gray-900 font-semibold text-4xl">Pay</h1>
+				</div>
+				<!-- search -->
+				<div class="ml-10">
+					<label
+						class="rounded-full bg-white px-4 py-1 flex items-center space-x-4"
+					>
+						<span
+							><svg
+								class="h-7 w-7 text-gray-300 opacity-75"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+									clip-rule="evenodd"
+								/></svg
+						></span>
+						<input
+							type="text"
+							placeholder="Search"
+							class="h-8 focus:outline-none"
+						/>
+					</label>
+				</div>
+				<!-- user data -->
+				<div class="flex flex-row justify-center space-x-2 ml-auto mr-10">
+					<button class="inline-flex items-center py-2">
+						<span class="text-xs">EN</span>
+						<svg
+							class="h-6 w-6"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 20 20"
+							fill="currentColor"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+								clip-rule="evenodd"
+							/>
+						</svg>
+					</button>
+					<button class="inline-flex items-center py-2">
+						<svg
+							class="h-6 w-6 text-gray-600"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+							/>
+						</svg>
+					</button>
+				</div>
+
+				<div class="">
+					<button
+						class="rounded-full focus:outline-none ring-black focus:ring-2 hover:shadow-xl focus:shadow-xl transition-shadow duration-100"
+					>
+						<img
+							class="rounded-full h-12 w-12 shadow-inner"
+							src="https://randomuser.me/api/portraits/men/46.jpg"
+						/>
+					</button>
+				</div>
+			</header>
+			<nav
+				class="flex flex-col justify-start items-start h-screen md:h-full fixed md:relative bg-white z-40 w-full p-4 md:p-0 space-y-12 md:space-y-0 md:flex md:bg-transparent md:col-start-1 md:row-start-2 md:col-end-2 md:row-end-2"
+				:class="menuOpen ? 'show' : 'hidden'"
+				data-click.away="menuOpen = false"
+				x-transition:enter="transition ease-out duration-100"
+				x-transition:enter-start="opacity-0 transform scale-90"
+				x-transition:enter-end="opacity-100 transform scale-100"
+				x-transition:leave="transition ease-in duration-200"
+				x-transition:leave-start="opacity-100 transform scale-100"
+				x-transition:leave-end="opacity-0 transform scale-90"
+			>
+				<!-- title -->
+				<button
+					@click="menuOpen = !menuOpen"
+					class="inline-flex w-auto items-center rounded-xl bg-black text-white md:hidden"
+				>
+					<svg
+						class="h-10 w-10 text-white stroke-current"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M6 18L18 6M6 6l12 12"
+						/>
+					</svg>
+				</button>
+
+				<div class="flex items-center md:hidden relative">
+					<h1 class="text-gray-900 font-semibold text-4xl sm:text-5xl">Pay</h1>
+					<div class="">
+						<svg
+							class="h-16 w-16 text-gray-900 opacity-10 fill-current"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+							aria-hidden="true"
+							focusable="false"
+							preserveAspectRatio="xMidYMid meet"
+							viewBox="0 0 24 24"
+						>
+							<path
+								d="M16.79 23c-.42-.17-.72-.55-.79-1c-.05-.26 0-.44.4-1.16c1.5-2.7 2.27-5.75 2.23-8.84c.04-3-.69-5.93-2.13-8.56c-.21-.44-.4-.86-.56-1.31c.06-.38.25-.73.56-.94c.45-.24 1-.19 1.41.09c.28.36.52.72.72 1.14A21.4 21.4 0 0 1 20.8 9c.23 1.81.26 3.65.09 5.47c-.31 2.34-1 4.6-2.06 6.71c-.64 1.28-1 1.82-1.38 1.82H16.79m-4.36-2.21c-.57-.16-.93-.74-.81-1.32c0-.12.31-.67.59-1.23c1.18-2.27 1.69-4.83 1.46-7.38c-.14-1.83-.67-3.61-1.54-5.22c-.63-1.26-.67-1.46-.3-2c.44-.49 1.17-.56 1.71-.14c.72 1.06 1.29 2.22 1.71 3.44c1.28 3.79 1.08 7.92-.56 11.56c-.84 1.89-1.43 2.5-2.26 2.24v.05m-4.5-2.23a1.31 1.31 0 0 1-.73-.86c0-.2 0-.46.45-1.26a8.986 8.986 0 0 0 0-8.68C7 6.5 7 6.24 7.53 5.76c.19-.22.47-.33.77-.29c.64 0 1 .31 1.54 1.44A10.51 10.51 0 0 1 11.12 12c.04 1.81-.4 3.61-1.27 5.2c-.54 1.05-.81 1.3-1.35 1.39c-.19.02-.39 0-.57-.09v.06m-4.21-2.13c-.33-.16-.59-.43-.72-.78c-.1-.35 0-.65.4-1.29c.5-.68.74-1.52.69-2.36c.07-.85-.16-1.69-.65-2.39A6.11 6.11 0 0 1 3 8.82c-.11-.63.31-1.23 1-1.35c.54-.1.92.13 1.42.89a6.619 6.619 0 0 1 0 7.27c-.51.77-1.09 1-1.69.8h-.01z"
+							/>
+						</svg>
+					</div>
+				</div>
+				<ul class="flex flex-col space-y-4 w-full md:pt-8">
+					<li class="">
+						<button
+							class="flex items-center space-x-4 py-2 px-4 md:px-2 md:py-1 bg-gray-200 md:bg-transparent rounded-3xl focus:outline-none focus:ring-4 md:focus:ring-1 ring-gray-900"
+						>
+							<svg
+								class="h-10 w-10 md:h-8 md:w-8 text-gray-900 stroke-current"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								stroke="none"
+							>
+								<g fill="none">
+									<path
+										d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414l-7-7z"
+										fill="currentColor"
+									/>
+								</g>
+							</svg>
+							<span class="text-2xl font-semibold md:hidden">Home </span>
+						</button>
+					</li>
+					<li>
+						<button
+							class="flex items-center space-x-4 py-2 px-4 md:px-2 md:py-1 rounded-3xl focus:outline-none focus:ring-4 md:focus:ring-1 ring-gray-900"
+						>
+							<svg
+								class="h-10 w-10 md:w-8 md:h-8 text-gray-900 stroke-current"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+								/>
+							</svg>
+							<span class="text-2xl font-semibold md:hidden">Inbox</span>
+						</button>
+					</li>
+					<li>
+						<button
+							class="flex items-center space-x-4 py-2 px-4 md:px-2 md:py-1 rounded-3xl focus:outline-none focus:ring-4 md:focus:ring-1 ring-gray-900"
+						>
+							<svg
+								class="h-10 w-10 md:w-8 md:h-8 text-gray-900 stroke-current"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+								/>
+							</svg>
+							<span class="text-2xl font-semibold md:hidden">Chat</span>
+						</button>
+					</li>
+					<li>
+						<button
+							class="flex items-center space-x-4 py-2 px-4 md:px-2 md:py-1 rounded-3xl focus:outline-none focus:ring-4 md:focus:ring-1 ring-gray-900"
+						>
+							<svg
+								class="h-10 w-10 md:w-8 md:h-8 text-gray-900 stroke-current"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+								/>
+							</svg>
+							<span class="text-2xl font-semibold md:hidden">User</span>
+						</button>
+					</li>
+					<li>
+						<button
+							class="flex items-center space-x-4 py-2 px-4 md:px-2 md:py-1 rounded-3xl focus:outline-none focus:ring-4 md:focus:ring-1 ring-gray-900"
+						>
+							<svg
+								class="h-10 w-10 md:w-8 md:h-8 text-gray-900 stroke-current"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+								/>
+							</svg>
+							<span class="text-2xl font-semibold md:hidden">Documents</span>
+						</button>
+					</li>
+					<li>
+						<button
+							class="flex items-center space-x-4 py-2 px-4 md:px-2 md:py-1 rounded-3xl focus:outline-none focus:ring-4 md:focus:ring-1 ring-gray-900"
+						>
+							<svg
+								class="h-10 w-10 md:w-8 md:h-8 text-gray-900 stroke-current"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+								/>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+								/>
+							</svg>
+							<span class="text-2xl font-semibold md:hidden">Settings</span>
+						</button>
+					</li>
+				</ul>
+			</nav>
+			<main
+				class="bg-white h-full rounded-3xl p-8 w-full grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 xl:gap-8 md:col-start-2 md:row-start-2"
+			>
+				<!-- <div class="flex flex-col space-y-8 xl:col-span-2">
+					<div class="grid lg:grid-cols-2 gap-12"> -->
+				<header class="space-y-8">
+					<h2 class="font-semibold text-xl sm:text-2xl">Dashboard</h2>
+					<!-- credit card -->
+					<div class="relative max-w-sm">
+						<div
+							class="bg-gray-300 absolute inset-0 transform translate-y-4 rounded-2xl opacity-75 scale-95"
+						></div>
+						<div
+							class="bg-gray-300 absolute inset-0 transform translate-y-8 rounded-2xl opacity-25 scale-90"
+						></div>
+						<div
+							class="bg-black p-4 rounded-xl flex flex-col space-y-8 shadow-md relative"
+						>
+							<div>
+								<svg
+									class="h-6 w-6 text-white fill-current"
+									xmlns="http://www.w3.org/2000/svg"
+									xmlns:xlink="http://www.w3.org/1999/xlink"
+									aria-hidden="true"
+									focusable="false"
+									preserveAspectRatio="xMidYMid meet"
+									viewBox="0 0 24 24"
+								>
+									<path
+										d="M16.79 23c-.42-.17-.72-.55-.79-1c-.05-.26 0-.44.4-1.16c1.5-2.7 2.27-5.75 2.23-8.84c.04-3-.69-5.93-2.13-8.56c-.21-.44-.4-.86-.56-1.31c.06-.38.25-.73.56-.94c.45-.24 1-.19 1.41.09c.28.36.52.72.72 1.14A21.4 21.4 0 0 1 20.8 9c.23 1.81.26 3.65.09 5.47c-.31 2.34-1 4.6-2.06 6.71c-.64 1.28-1 1.82-1.38 1.82H16.79m-4.36-2.21c-.57-.16-.93-.74-.81-1.32c0-.12.31-.67.59-1.23c1.18-2.27 1.69-4.83 1.46-7.38c-.14-1.83-.67-3.61-1.54-5.22c-.63-1.26-.67-1.46-.3-2c.44-.49 1.17-.56 1.71-.14c.72 1.06 1.29 2.22 1.71 3.44c1.28 3.79 1.08 7.92-.56 11.56c-.84 1.89-1.43 2.5-2.26 2.24v.05m-4.5-2.23a1.31 1.31 0 0 1-.73-.86c0-.2 0-.46.45-1.26a8.986 8.986 0 0 0 0-8.68C7 6.5 7 6.24 7.53 5.76c.19-.22.47-.33.77-.29c.64 0 1 .31 1.54 1.44A10.51 10.51 0 0 1 11.12 12c.04 1.81-.4 3.61-1.27 5.2c-.54 1.05-.81 1.3-1.35 1.39c-.19.02-.39 0-.57-.09v.06m-4.21-2.13c-.33-.16-.59-.43-.72-.78c-.1-.35 0-.65.4-1.29c.5-.68.74-1.52.69-2.36c.07-.85-.16-1.69-.65-2.39A6.11 6.11 0 0 1 3 8.82c-.11-.63.31-1.23 1-1.35c.54-.1.92.13 1.42.89a6.619 6.619 0 0 1 0 7.27c-.51.77-1.09 1-1.69.8h-.01z"
+									/>
+								</svg>
+							</div>
+							<div class="text-white tracking-wide font-medium text-xl">
+								4562 4455 3453 1231
+							</div>
+							<div class="grid grid-cols-2">
+								<div class="flex flex-col space-y-1 justify-end">
+									<span
+										class="uppercase tracking-wide leading-none text-gray-300"
+										style="font-size: 0.5rem"
+										>card holder</span
+									>
+									<span
+										class="text-xs font-medium uppercase tracking-wide text-gray-100"
+										>Mr. Green Garden</span
+									>
+								</div>
+								<div class="flex flex-col space-y-1 text-right items-end">
+									<img
+										class="h-12 w-12"
+										src="https://github.com/aaronfagan/svg-credit-card-payment-icons/raw/master/logo/mastercard.svg"
+									/>
+									<span
+										class="tracking-wider leading-none text-gray-300"
+										style="font-size: 0.5rem"
+										>Mastercard</span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</header>
+				<section class="space-y-8">
+					<h2 class="font-semibold text-xl sm:text-2xl">Upcoming Payments</h2>
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+						<!-- card 1 -->
+						<div
+							class="bg-gray-100 rounded-3xl p-6 flex flex-col items-center space-y-2"
+						>
+							<div
+								class="bg-gray-900 rounded-3xl flex items-center justify-center p-4 w-20"
+							>
+								<svg
+									class="stroke-1 h-10 w-10 text-white"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+									/>
+								</svg>
+							</div>
+							<h4 class="text-gray-800 font-bold text-xl sm:text-xl">Salary</h4>
+							<p class="text-sm text-gray-500">Belong Interactive</p>
+							<p class="text-gray-800 font-bold text-xl sm:text-xl">+$2,000</p>
+						</div>
+						<!-- card 2 -->
+						<div
+							class="bg-gray-100 rounded-3xl p-6 flex flex-col items-center space-y-2"
+						>
+							<div
+								class="bg-gray-900 rounded-3xl flex items-center justify-center p-4 w-20"
+							>
+								<svg
+									class="stroke-1 h-10 w-10 text-white"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+									/>
+								</svg>
+							</div>
+							<h4 class="text-gray-800 font-bold text-xl sm:text-xl">Paypal</h4>
+							<p class="text-sm text-gray-500">Freelancer</p>
+							<p class="text-gray-800 font-bold text-xl sm:text-xl">+$45.75</p>
+						</div>
+					</div>
+				</section>
+				<!-- </div> -->
+				<section class="md:col-span-2 flex flex-col space-y-8 xl:col-span-2">
+					<h2 class="font-semibold text-xl sm:text-2xl">Recent Transactions</h2>
+					<table class="w-full" cellpadding="0" cellspacing="0" border="0">
+						<tbody class="divide-y w-full md:table-row-group space-y-4">
+							<tr
+								class="w-full relative grid grid-cols-3 grid-rows-2 md:table-row items-center gap-x-2"
+								style="grid-template-columns: 1fr 6fr 2fr"
+							>
+								<td class="col-span-1 row-span-2">
+									<span
+										class="bg-gray-100 p-2 rounded-xl md:bg-transparent md:p-0 flex items-center"
+									>
+										<svg
+											class="h-8 w-8 text-gray-800"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+											/>
+										</svg>
+									</span>
+								</td>
+								<td class="col-start-2 col-end-3 row-start-1 row-end-1">
+									<span
+										class="font-medium text-lg sm:text-lg tracking-tight text-gray-800 leading-none"
+										>Shopping</span
+									>
+								</td>
+								<td class="col-start-2 col-end-3 row-start-2 row-end-2">
+									<span
+										class="font-normal text-base tracking-tight text-gray-500 leading-none"
+										>05 June 20202 10:00</span
+									>
+								</td>
+								<td
+									class="col-start-3 col-end-4 row-start-1 row-end-3 text-right place-items-center"
+								>
+									<span
+										class="font-medium text-lg sm:text-lg tracking-tight text-gray-800"
+										>$300</span
+									>
+								</td>
+								<td class="hidden md:flex justify-end items-center">
+									<div
+										class="card bg-black text-white rounded-xl relative py-1"
+									>
+										<ul class="divide-y space-y-2">
+											<li>
+												<button class="px-4">test content</button>
+											</li>
+											<li>
+												<button class="px-4">test content</button>
+											</li>
+											<li>
+												<button class="px-4">test content</button>
+											</li>
+										</ul>
+									</div>
+									<button
+										class="flex items-center px-2 py-2 opacity-80 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-black rounded-xl"
+									>
+										<svg
+											class="h-6 w-6"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+											/>
+										</svg>
+									</button>
+								</td>
+							</tr>
+							<tr
+								class="w-full relative grid grid-cols-3 grid-rows-2 md:table-row items-center gap-x-2"
+								style="grid-template-columns: 1fr 6fr 2fr"
+							>
+								<td class="col-span-1 row-span-2">
+									<span
+										class="bg-gray-100 p-2 rounded-xl md:bg-transparent md:p-0 flex items-center"
+									>
+										<svg
+											class="h-8 w-8 text-gray-800"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+											/>
+										</svg>
+									</span>
+								</td>
+								<td class="col-start-2 col-end-3 row-start-1 row-end-1">
+									<span
+										class="font-medium text-lg sm:text-lg tracking-tight text-gray-800 leading-none"
+										>Groceries</span
+									>
+								</td>
+								<td class="col-start-2 col-end-3 row-start-2 row-end-2">
+									<span
+										class="font-normal text-base tracking-tight text-gray-500 leading-none"
+										>12 June 20202 14:05</span
+									>
+								</td>
+								<td
+									class="col-start-3 col-end-4 row-start-1 row-end-3 text-right place-items-center"
+								>
+									<span
+										class="font-medium text-lg sm:text-lg tracking-tight text-gray-800"
+										>$300</span
+									>
+								</td>
+								<td class="hidden md:flex justify-end">
+									<button
+										class="flex items-center px-2 py-2 opacity-80 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-black rounded-xl"
+									>
+										<svg
+											class="h-6 w-6"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+											/>
+										</svg>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section
+					class="bg-gray-100 rounded-3xl overflow-hidden xl:col-start-3 xl:row-span-3 xl:row-start-1"
+				>
+					<div class="flex flex-col space-y-8 h-full py-8">
+						<header class="text-center">
+							<h3
+								class="text-gray-500 font-medium text-lg sm:text-lg tracking-tight"
+							>
+								Saved This Month
+							</h3>
+							<p class="py-4 font-semibold text-xl sm:text-2xl">$25,999.00</p>
+						</header>
+						<nav class="flex items-center w-full justify-center">
+							<ul class="flex space-x-6">
+								<li>
+									<button
+										class="font-medium text-gray-400 hover:bg-gray-200 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+									>
+										Day
+									</button>
+								</li>
+								<li>
+									<button
+										class="font-medium text-gray-400 hover:bg-gray-200 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+									>
+										Week
+									</button>
+								</li>
+								<li>
+									<button
+										class="font-medium px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+									>
+										Month
+									</button>
+								</li>
+								<li>
+									<button
+										class="font-medium text-gray-400 hover:bg-gray-200 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+									>
+										Year
+									</button>
+								</li>
+							</ul>
+						</nav>
+						<div
+							class="flex flex-col flex-1 flex-grow justify-start items-center space-y-8"
+						>
+							<div class="relative w-full">
+								<div class="overflow-y-visible overflow-x-scroll">
+									<canvas id="myChart" width="500" height="200"></canvas>
+								</div>
+							</div>
+
+							<div
+								class="flex items-center justify-center overflow-y-visible overflow-x-auto w-full mx-auto pb-4 pt-4"
+								style="scroll-snap-type: x mandatory"
+							>
+								<ul class="flex space-x-8 whitespace-nowrap">
+									<li>
+										<button
+											class="font-medium text-gray-400 hover:bg-gray-300 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+										>
+											May
+										</button>
+									</li>
+									<li>
+										<button
+											class="font-medium text-gray-400 hover:bg-gray-300 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+										>
+											Jun
+										</button>
+									</li>
+									<li>
+										<button
+											class="font-medium text-gray-400 hover:bg-gray-300 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+										>
+											July
+										</button>
+									</li>
+									<li>
+										<button
+											class="font-medium text-gray-400 hover:bg-gray-300 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+										>
+											Aug
+										</button>
+									</li>
+									<li>
+										<button
+											class="font-medium text-gray-400 hover:bg-gray-300 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+										>
+											Sep
+										</button>
+									</li>
+									<li>
+										<button
+											class="font-medium text-white px-2 py-1 bg-black rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+										>
+											Oct
+										</button>
+									</li>
+									<li>
+										<button
+											class="font-medium text-gray-400 hover:bg-gray-300 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-black"
+										>
+											Nov
+										</button>
+									</li>
+								</ul>
+							</div>
+							<div class="max-w-lg w-full px-4">
+								<div class="relative mt-12 w-full">
+									<div
+										class="bg-gray-300 absolute inset-0 transform -translate-y-12 rounded-2xl opacity-20 scale-75"
+									></div>
+									<div
+										class="bg-gray-300 absolute inset-0 transform -translate-y-8 rounded-2xl opacity-25 scale-90"
+									></div>
+									<div
+										class="bg-gray-300 absolute inset-0 transform -translate-y-4 rounded-2xl opacity-75 scale-95"
+									></div>
+									<div
+										class="bg-gray-900 p-4 rounded-xl flex space-x-4 shadow-md relative w-full items-center"
+									>
+										<div
+											class="flex flex-col items-center justify-center flex-grow"
+										>
+											<h4 class="text-gray-300 text-lg opacity-50">
+												Plan for 2020
+											</h4>
+											<p class="text-gray-100 text-lg sm:text-xl md:text-2xl">
+												Completed
+											</p>
+										</div>
+										<div
+											class="flex items-center justify-center flex-shrink-0 flex-grow"
+										>
+											<svg
+												class="h-24 w-24 text-2xl text-white"
+												viewBox="0 0 100 100"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<circle
+													cx="50"
+													cy="50"
+													r="44"
+													fill="transparent"
+													stroke="currentColor"
+													stroke-width="12"
+												/>
+												<text
+													x="50%"
+													y="50%"
+													text-anchor="middle"
+													fill="currentColor"
+													dy=".3em"
+												>
+													75%
+												</text>
+											</svg>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- </div> -->
+			</main>
+		</div>
+
+		<script type="text/javascript" src="assets/js/main.js" defer></script>
+
+		<script>
+			function transactions() {
+				return {
+					transactions: [{ id: 1 }, { id: 2 }],
+				};
+			}
+		</script>
+		<script src="assets/js/Chart.min.js"></script>
+
+		<script>
+			var ctx = document.getElementById('myChart').getContext('2d');
+			var myChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: [
+						'January',
+						'February',
+						'March',
+						'April',
+						'May',
+						'June',
+						'July',
+					],
+					datasets: [
+						{
+							data: [
+								3700,
+								1402,
+								2402,
+								5267,
+								1635,
+								1809,
+								5267,
+								1402,
+								3700,
+								5267,
+							],
+							// label: 'Asia',
+							borderColor: '#000000',
+							fill: true,
+							backgroundColor: 'rgba(226, 232, 240,1)',
+							borderColor: '#000000',
+							pointBorderColor: '#fff',
+							pointBackgroundColor: '#000000',
+							pointBorderWidth: 4,
+							pointRadius: 4,
+						},
+					],
+				},
+				options: {
+					responsive: false,
+					legend: {
+						display: false,
+					},
+					scales: {
+						gridLines: {
+							display: false,
+						},
+						yAxes: [
+							{
+								display: false,
+								ticks: { beginAtZero: true },
+							},
+						],
+						xAxes: [
+							{
+								display: false,
+								ticks: { beginAtZero: true },
+								gridLines: {
+									display: false,
+								},
+							},
+						],
+					},
+				},
+			});
+		</script>
+	</body>
+</html>
